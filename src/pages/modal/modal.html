@@ -1,0 +1,29 @@
+<!--
+  Generated template for the ModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="dark">
+    <ion-title>Resultado</ion-title>
+    <ion-buttons end>
+        <button ion-button (click)="closeModal()">Close</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list *ngFor="let nose of end">
+    <ion-item>
+      <h2>
+        {{ nose.text }}
+      </h2>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
