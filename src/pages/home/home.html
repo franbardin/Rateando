@@ -6,11 +6,11 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="back">
     <ion-card>
 
-      <ion-card-header>
-        Card Header
+      <ion-card-header style="padding-bottom: 0px;">
+        Agregar persona
       </ion-card-header>
 
       <ion-card-content>
@@ -18,8 +18,8 @@
           <form [formGroup]="myForm" (ngSubmit)="saveData()">
           <ion-row>
             <ion-col col-8>
-              <ion-item>
-                <ion-label floating>Username</ion-label>
+              <ion-item style="padding-left: 0px;">
+                <ion-label floating>Nombre</ion-label>
                 <ion-input formControlName="name" type="text"></ion-input>
               </ion-item>
 
@@ -27,14 +27,14 @@
 
             <ion-col col-4>
               <ion-item>
-                <ion-label floating>Price</ion-label>
-                <ion-input formControlName="price" type="number"></ion-input>
+                <ion-label floating>Monto</ion-label>
+                <ion-input formControlName="price" type="number" min="0"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
           <ion-row justify-content-center>
             <ion-col col-12>
-              <button ion-button outline full block type="submit">AGREGAR</button>
+              <button ion-button outline block type="submit">AGREGAR</button>
             </ion-col>
           </ion-row>
         </form>
@@ -44,31 +44,22 @@
     </ion-card>
 
   <ion-card>
-    <ion-card-header>Listado</ion-card-header>
-    <ion-list *ngFor="let info of arrayTodos">
-      <ion-item>
+    <ion-card-header>
+      <button class="rightBtn" (click)="deleteList()">
+        Borrar lista
+      </button>
+      <h2>Listado</h2>
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let info of arrayTodos">
         <h2>
           {{ info.name }}
         </h2>
-        <p item-right>
+        <p item-right>$
           {{ info.price }}
         </p>
       </ion-item>
     </ion-list>
-    <!-- <ion-list>
-        <ion-item-sliding *ngFor="let t of todos">
-            <ion-item>
-                {{t}}
-                <p item-right>$40</p>
-            </ion-item>
-
-            <ion-item-options side="right">
-                <button ion-button color="danger" (click)="delete(t)">
-                    <ion-icon name="trash"></ion-icon> Borrar
-                </button>
-            </ion-item-options>
-        </ion-item-sliding>
-      </ion-list> -->
   </ion-card>
 
   <ion-fab center bottom>

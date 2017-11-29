@@ -51,34 +51,37 @@ export class ModalPage {
       let price = (Math.abs(parseInt(this.people[i].price)))
       if (price < quotient) {
         this.people[i].price = Math.abs(price - quotient)
-        this.people[i].state = "pagan";
+        this.people[i].state = "Tiene que pagar";
         this.debtor.push(this.people[i]);
 
       }else if (price == quotient){
         this.people[i].price = price - quotient
-        this.people[i].state = "nada"
+        this.people[i].state = "Ya pagaron"
         this.done.push(this.people[i]);
 
       }
       else {
         this.people[i].price = price - quotient
-        this.people[i].state = "beneficiado"
+        this.people[i].state = "Le deben plata"
         this.benefited.push(this.people[i]);
       }
     }
       for (let i of Object.keys(this.debtor)){
         for (let j of Object.keys(this.benefited)){
-                    console.log(this.debtor[i].name + this.debtor[i].price + "+" + this.benefited[j].price)
+          console.log(this.debtor[i].name + this.debtor[i].price + "+" + this.benefited[j].price)
           if (parseInt(this.debtor[i].price) <= parseInt(this.benefited[j].price)){
-            this.end.push({text:`${this.debtor[i].name} paga a ${this.benefited[j].name} ${this.debtor[i].price}`})
-            this.benefited[j].price =  this.benefited[j].price - this.debtor[i].price
-            this.debtor[i].price = 0
+            if (this.debtor[i].price != 0){
+              this.end.push({text:`${this.debtor[i].name} paga a ${this.benefited[j].name} ${this.debtor[i].price}`})
+              this.benefited[j].price =  this.benefited[j].price - this.debtor[i].price
+              this.debtor[i].price = 0
+            }
           }else{
-            this.end.push({text:`${this.debtor[i].name} paga A ${this.benefited[j].name} ${this.benefited[j].price}`})
-            //this.benefited[j].price = this.debtor[i].price - this.benefited[j].price
-            this.debtor[i].price = this.debtor[i].price - this.benefited[j].price
-            this.benefited[j].price = 0
-
+            if (this.benefited[j].price != 0){
+              this.end.push({text:`${this.debtor[i].name} paga A ${this.benefited[j].name} ${this.benefited[j].price}`})
+              //this.benefited[j].price = this.debtor[i].price - this.benefited[j].price
+              this.debtor[i].price = this.debtor[i].price - this.benefited[j].price
+              this.benefited[j].price = 0
+            }
           }
         }
       }

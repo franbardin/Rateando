@@ -15,14 +15,13 @@ export class HomePage {
     price: Number,
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl : ViewController,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
     public formBuilder: FormBuilder, private modal: ModalController, public storage: Storage) {
-      this.getData()
-      // storage.clear();
-      this.myForm = this.formBuilder.group({
-        name: ['', Validators.required],
-        price: ['', Validators.required]
-      });
+    this.getData()
+    this.myForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      price: ['', Validators.required]
+    });
   }
 
   openModal() {
@@ -30,11 +29,11 @@ export class HomePage {
     myModal.present();
   }
 
-   getData() {
+  getData() {
     this.storage.keys().then((arrayDeKeys) => {
       console.log(arrayDeKeys);
       this.arrayTodos = [];
-      for(let i of arrayDeKeys){
+      for (let i of arrayDeKeys) {
         this.storage.get(i).then((pepe) => {
           let obj = JSON.parse(pepe);
           this.arrayTodos.push(obj);
@@ -44,22 +43,31 @@ export class HomePage {
     });
   }
 
-async saveData() {
-  this.objeto.name = this.myForm.get('name').value;
-  this.objeto.price = this.myForm.get('price').value;
+  async saveData() {
+    this.objeto.name = this.myForm.get('name').value;
+    this.objeto.price = this.myForm.get('price').value;
 
-  //Crea una key para el objeto que se esta guardando
-  const num = await this.storage.length()
-    let messi = num +1 ;
-    let key = "" + messi;
-    console.log(key);
-  //Guardo el objeto en storage
-    let stringfyObj = JSON.stringify(this.objeto, null);
-    this.storage.set(key , stringfyObj);
-  console.log(this.objeto);
-  this.navCtrl.setRoot(HomePage);
-  this.navCtrl.popToRoot();
-  //this.getData();
-}
+    //Crea una key para el objeto que se esta guardando
+    if (this.objeto.name != ""){
+      if (this.objeto.price != ""){
+        const num = await this.storage.length()
+        console.log(num)
+        let messi = num + 1;
+        let key = "" + messi;
+        console.log(key);
+        //Guardo el objeto en storage
+        let stringfyObj = JSON.stringify(this.objeto, null);
+        this.storage.set(key, stringfyObj);
+        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.popToRoot();
+        //this.getData();
+      }
+    }
+  }
+
+  deleteList() {
+    this.storage.clear();
+    this.getData();
+  }
 
 }
