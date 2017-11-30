@@ -15,26 +15,24 @@
 
       <ion-card-content>
         <ion-grid>
-          <form [formGroup]="myForm" (ngSubmit)="saveData()">
+          <form #formCtrl="ngForm" [formGroup]="myForm" (ngSubmit)="saveData()">
           <ion-row>
             <ion-col col-8>
               <ion-item style="padding-left: 0px;">
                 <ion-label floating>Nombre</ion-label>
-                <ion-input formControlName="name" type="text"></ion-input>
+                <ion-input formControlName="name" type="text" required></ion-input>
               </ion-item>
-
             </ion-col>
-
             <ion-col col-4>
               <ion-item>
                 <ion-label floating>Monto</ion-label>
-                <ion-input formControlName="price" type="number" min="0"></ion-input>
+                <ion-input formControlName="price" type="number" min="0" required></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
           <ion-row justify-content-center>
             <ion-col col-12>
-              <button ion-button outline block type="submit">AGREGAR</button>
+              <button ion-button outline block type="submit" [disabled]="!formCtrl.form.valid">AGREGAR</button>
             </ion-col>
           </ion-row>
         </form>

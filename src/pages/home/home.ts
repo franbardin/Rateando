@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  prais: number = 0;
   arrayTodos = [];
   myForm: FormGroup;
   objeto = {
@@ -48,8 +49,6 @@ export class HomePage {
     this.objeto.price = this.myForm.get('price').value;
 
     //Crea una key para el objeto que se esta guardando
-    if (this.objeto.name != ""){
-      if (this.objeto.price != ""){
         const num = await this.storage.length()
         console.log(num)
         let messi = num + 1;
@@ -61,8 +60,7 @@ export class HomePage {
         this.navCtrl.setRoot(HomePage);
         this.navCtrl.popToRoot();
         //this.getData();
-      }
-    }
+
   }
 
   deleteList() {
